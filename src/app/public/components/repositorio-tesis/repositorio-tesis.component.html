@@ -1,0 +1,30 @@
+<div class="main d-flex flex-column align-items-center">
+
+
+
+    <div class="row-sm-12 row-md-12 row-lg-12  d-flex p-4" *ngFor="let tesis of repositorio_tesis;  let i = index">
+        <div class="col-sm-6 col-md-6 col-lg-6 p-4">
+            <img src="../../../../assets/images/prueba.jpg" alt="" srcset="">
+        </div>
+        <div class="col-sm-6 col-md-6 col-lg-6 p-4">
+            <div class="data" id="title">{{repositorio_tesis[i]['DTitulo']}}</div>
+            <div class="data">Típo: {{repositorio_tesis[i]['DTipo']}}</div>
+            <div class="data">Autores: {{repositorio_tesis[i]['DAutores']}}</div>
+            <div class="data">Fecha: {{repositorio_tesis[i]['DFecha']}}</div>
+            <div class="data">Resumen: {{repositorio_tesis[i]['DResumen']}}</div>
+            <div class="actions">
+                <a mat-raised-button href="{{repositorio_tesis[i]['DEnlace']}}">Ver documento</a>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+</div>

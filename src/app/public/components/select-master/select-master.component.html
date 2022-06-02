@@ -1,0 +1,34 @@
+<div class="row row-sm-12 row-md-12 row-lg-12 toolbar mb-4">
+    <span class="  col-sm-7 col-mg-7 col-lg-7 d-flex justify-content-center mt-4">
+        Maestrías
+    </span>
+    <div class="  col-sm-5 col-mg-5 col-lg-5 d-flex justify-content-raigth mt-4">
+        <button mat-raised-button routerLink="/public/login">
+          <mat-icon>
+            login
+        </mat-icon>
+      </button>
+    </div>
+
+</div>
+
+
+<mat-card>
+    <mat-accordion *ngFor="let maestria of masters; let i = index" class="col col-sm-12 col-md-6 col-lg-12 p-4">
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>{{ masters[i]['nombre_maestria']}}</mat-expansion-panel-header>
+            <p>{{ masters[i]['general']['GLGAC'] }}</p>
+            <button mat-raised-button [routerLink]="['/public', masters[i]['_id'] , masters[i]['abreviatura_maestria']]">ver</button>
+        </mat-expansion-panel>
+    </mat-accordion>
+</mat-card>
+
+
+
+
+
+
+
+
+
+<router-outlet></router-outlet>

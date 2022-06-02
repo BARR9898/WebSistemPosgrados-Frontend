@@ -1,0 +1,39 @@
+<div class="main p-4">
+
+    <section class="title d-flex justify-content-center mb-4 ">
+        <h1 class="mt-2">Documentos de la maestría {{master_name}}</h1>
+    </section>
+
+
+    <div class="container ">
+        <div class="row row-lg-12">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col d-flex justify-content-center">Titulo</th>
+                            <th scope="col d-flex justify-content-center">Descripción</th>
+                            <th scope="col d-flex justify-content-center">Ruta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let file of files_master; let i = index">
+                            <td>{{file.title}}</td>
+                            <td>{{file.description}}</td>
+                            <td>{{file.imagePath}}</td>
+                            <td><button mat-raised-button color="warn" (click)="deleteImage(files_master[i]['_id'])">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+</div>

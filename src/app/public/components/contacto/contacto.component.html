@@ -1,0 +1,85 @@
+<div class="main">
+
+
+    <div class="row-sm-12 row-md-12">
+
+        <div class="col-sm-12 col-md-12 d-flex align-middle flex-column align-items-center  text-justify mt-4 p-4">
+
+            <div class="title">
+                <i class="material-icons">map</i>
+                <h2>Direcciones</h2>
+            </div>
+
+
+
+            <div *ngFor="let direccion of direcciones; let i = index">
+                <p>{{direcciones[i]}}</p>
+            </div>
+
+
+        </div>
+
+        <div class="col-sm-12 col-md-12 d-flex align-middle flex-column align-items-center mt-4">
+
+
+            <div class="title">
+                <i class="material-icons ">phone</i>
+
+
+                <h2>Teléfonos</h2>
+            </div>
+
+
+
+
+            <div *ngFor="let telefono of telefonos; let i=index ">
+                <p>{{telefonos[i]}}</p>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-md-12 d-flex align-middle flex-column align-items-center mt-4">
+
+
+            <div class="title">
+                <i class="material-icons ">people</i>
+                <h2>Redes</h2>
+            </div>
+
+
+
+
+            <div *ngFor="let red of redes; let i=index ">
+                <div [ngSwitch]=" redes[i][ 'RNombre']" class="data-icon ">
+                    <div *ngSwitchCase="facebook" class="switch-case ">
+
+                        <img src="../../../../assets/images/facebook.png " alt=" " srcset=" "> {{redes[i]['RCuenta']}}
+
+
+                    </div>
+                    <div *ngSwitchCase="instagram" class="switch-case ">
+
+                        <img src="../../../../assets/images/instagram.png " alt=" " srcset=" "> {{redes[i]['RCuenta']}}
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-md-12 d-flex align-middle flex-column align-items-center mt-4">
+
+            <div class="title">
+                <i class="material-icons ">email</i>
+                <h2>Correos</h2>
+            </div>
+
+            <div *ngFor="let correo of correos; let i=index ">
+                <p>{{correos[i]}}</p>
+            </div>
+        </div>
+
+
+    </div>
+
+
+</div>

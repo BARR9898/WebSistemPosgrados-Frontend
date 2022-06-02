@@ -1,0 +1,1345 @@
+<div class="main" *ngIf="form">
+
+    <div class="title">
+        <h1>Crear una maestría</h1>
+    </div>
+    <mat-card class="mat-elevation-z4">
+        <mat-card-title>
+            Nueva maestría
+        </mat-card-title>
+
+        <mat-card-content>
+
+            <!-----------------------Inicio del form----------------------------->
+            <form [formGroup]="form" (ngSubmit)="saveMasterUpdated()">
+
+
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>General</mat-panel-title>
+                            <mat-panel-description>
+                                Inforamción general
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+
+
+
+
+                        <!--*INICIO SECCION GENERAL*-->
+                        <div class="general-section">
+
+
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        Nombre y abreviatura
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+                                <!-----------------------Inicio del NOMBRE MAESTRIA----------------------------->
+                                <div class="input-section-form">
+                                    <label for="nombre_maestria">Ingrese el nombre</label>
+                                    <input placeholder="Nombre de la maestría" value="" id="nombre_maestria" formControlName="nombre_maestria" [(ngModel)]="master.nombre_maestria">
+
+                                </div>
+                                <!-----------------------Fin del NOMBRE MAESTRIA----------------------------->
+
+                                <!-----------------------Inicio del ABREVIATURA MAESTRIA----------------------------->
+                                <div class="input-section-form">
+                                    <label for="abreviatura">Ingrese una abreviatura</label>
+                                    <input id="abreviatura" placeholder="Abreviatura para la maestría" value="" formControlName="abreviatura_maestria" [(ngModel)]="master.abreviatura_maestria">
+
+                                </div>
+                                <!-----------------------Fin del ABREVIATURA MAESTRIA----------------------------->
+
+                            </mat-expansion-panel>
+
+
+
+
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            Trámites y fechas
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+
+
+
+
+                                    <!-----------------------Inicio de TRAMITES----------------------------->
+
+                                    <div class="tramites-preview">
+                                        <div class="row-sm-12 row-md-12 row-lg-12 d-flex" *ngFor="let tramite of master.general.GTramites;let i =index;">
+
+                                            <input type="text" [(ngModel)]="master.general.GTramites[i]['GTNombre']"> {{tramite.GTNombre}} {{tramite.GTCosto}}
+                                            <button (click)="deleteGTramite(i)">Delte</button>
+
+                                        </div>
+                                    </div>
+
+                                    <div formArrayName="GTramites" class="form-group">
+                                        <section *ngFor="let control of form.controls.GTramites['controls'];let i = index;" [formGroupName]="i">
+                                            <label for="nombre_trmite">Nombre del tramite {{i+1}}</label>
+                                            <input id="nombre_tramite" placeholder="Nombre del trámite" formControlName="GTNombre" id="nombre_trmite">{{i}}
+                                            <label for="costo_tramite">Costo del tramite</label>
+                                            <input id="costo_tramite" placeholder="Costo del trámite" formControlName="GTCosto" id="costo_tramite">{{i}}
+                                            <button type="button" mat-raised-button *ngIf="form.controls.GTramites['controls'].length > 1" (click)="deleteGTramite(i)">
+                                            Eliminar <mat-icon> delete</mat-icon>
+                                         </button>
+                                        </section>
+
+                                        <button type="button" mat-raised-button disabled="{{ form.controls['GTramites'].invalid }}" (click)="addGTramite()">
+                          Agregar<mat-icon> add</mat-icon>
+                          </button>
+                                    </div>
+
+
+
+                                    <!-----------------------Fin de TRAMITES----------------------------->
+
+
+
+
+
+
+
+
+                                    <!-----------------------Inicio de FECHAS----------------------------->
+                                    <div formArrayName="GFechas" class="form-group">
+                                        <section *ngFor="let control of form.controls.GFechas['controls'];let i = index;" [formGroupName]="i">
+                                            <label for="nombre_evento">Nombre del evento {{i+1}}</label>
+                                            <input id="nombre_evento" placeholder="Nombre del evento o proceso" formControlName="GFNombreTramite">
+                                            <label for="fecha_evento">Fecha</label>
+                                            <input type="date" id="fecha_evento" placeholder="Fecha (dd/mm/aa)" formControlName="GFTramiteFecha">
+                                            <button type="button" mat-raised-button *ngIf="form.controls.GFechas['controls'].length > 1" (click)="deleteGFechas(i)">
+                                      Eliminar <mat-icon> delete</mat-icon>
+                                  </button>
+                                        </section>
+                                        <button type="button" mat-raised-button disabled="{{ form.controls['GFechas'].invalid }}" (click)="addGFechas()">
+                                                  Agregar<mat-icon> add</mat-icon>
+                                        </button>
+                                    </div>
+                                    <!-----------------------Fin de TRAMITES----------------------------->
+
+
+                                </mat-expansion-panel>
+                            </mat-accordion>
+
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            Objetivos
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                                    <!-----------------------Inicio de GObjetivoGeneral----------------------------->
+                                    <div class="input-section-form">
+                                        <mat-card-title>Objetivos y metas</mat-card-title>
+                                        <label for="GeneralObjetivoGeneral">Objetivo General</label>
+                                        <textarea id="GeneralObjetivoGeneral" placeholder="Objetivo general" formControlName="GObjetivoGeneral"></textarea>
+                                    </div>
+                                    <!-----------------------Fin de GObjetivoGeneral----------------------------->
+
+                                    <!-----------------------Inicio de GObjetivosEspecificos----------------------------->
+                                    <div class="input-section-form ">
+                                        <div formArrayName="GObjetivosEspecificos">
+                                            <section *ngFor="let conocimiento of GObjetivosEspecificos.controls; let i=index; ">
+                                                <label for="objetivo_especifico">Ingrese un objetivo específico</label>
+                                                <input id="objetivo_especifico" placeholder="Ingrese un objetivo" value=" " [formControlName]="i">
+                                                <button type="button" *ngIf="this.form.controls.GObjetivosEspecificos[ 'controls'].length> 1" mat-raised-button (click)="deleteGObjetivosEspecificos(i)"> Eliminar
+                                          <mat-icon> delete</mat-icon>
+                                      </button>
+                                            </section>
+                                            <button type="button" mat-raised-button disabled="{{ form.controls['GObjetivosEspecificos'].invalid }}" (click)="agregarGObjetivosEspecificos()">
+                                      Agregar<mat-icon> add</mat-icon>
+                                  </button>
+                                        </div>
+                                    </div>
+                                    <!-----------------------Fin del GObjetivosEspecificos----------------------------->
+
+                                </mat-expansion-panel>
+                            </mat-accordion>
+
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            Metas
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                                    <!-----------------------Inicio de GMetas----------------------------->
+                                    <div class="input-section-form">
+                                        <div formArrayName="GMetas">
+                                            <section *ngFor="let meta of GMetas.controls; let i=index; ">
+                                                <label for="metas">Ingrese una meta</label>
+                                                <input id="metas" placeholder="Ingrese una meta" value="" [formControlName]="i">
+                                                <button type="button" *ngIf="this.form.controls.GMetas['controls'].length > 1" mat-raised-button (click)="deleteGMetas(i)">
+                                        Eliminar <mat-icon> delete</mat-icon>
+                                      </button>
+                                            </section>
+                                            <button type="button" mat-raised-button disabled="{{ form.controls['GMetas'].invalid }}" (click)="agregarGMetas()">
+                                                                  Agregar<mat-icon> add</mat-icon>
+                                                                </button>
+                                        </div>
+                                    </div>
+                                    <!-----------------------Fin del GMetas----------------------------->
+
+                                </mat-expansion-panel>
+
+                            </mat-accordion>
+
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            Perfil de ingreso
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                                    <!-----------------------Inicio del GPI_start----------------------------->
+                                    <mat-card-title>Perfil de ingreso</mat-card-title>
+                                    <div class="input-section-form">
+                                        <label for="perfil_ingreso">Texto introductorio</label>
+                                        <textarea placeholder="Texto de introducción" value="" id="perfil_ingreso" formControlName="GPI_start"></textarea>
+                                    </div>
+                                    <!-----------------------Fin del GPI_start----------------------------->
+
+
+
+                                    <!-----------------------Inicio del GPI_conocimientos_basicos----------------------------->
+                                    <div class="input-section-form">
+                                        <div formArrayName="GPI_conocimientos_basicos">
+
+                                            <section *ngFor="let conocimiento of GPI_conocimientos_basicos.controls; let i=index; ">
+                                                <label for="conocimientos_basicos">Conocimiento basico</label>
+                                                <input placeholder="Ingrese un conocimiento básico" value="" id="conocimientos_basicos" [formControlName]="i">
+                                                <button type="button" *ngIf="this.form.controls.GPI_conocimientos_basicos['controls'].length > 1" mat-raised-button (click)="deleteGPIConocimientosBasicos(i)">
+                              Eliminar <mat-icon> delete</mat-icon>
+                            </button>
+                                            </section>
+                                            <button type="button" mat-raised-button disabled="{{ form.controls['GPI_conocimientos_basicos'].invalid }}" (click)="agregarConocimientoBasico()">
+                          Agregar<mat-icon> add</mat-icon>
+                        </button>
+                                        </div>
+                                    </div>
+                                    <!-----------------------Fin del GPI_conocimientos_basicos----------------------------->
+
+
+                                    <!-----------------------Inicio del GPI_habilidades----------------------------->
+                                    <div class="input-section-form">
+                                        <div formArrayName="GPI_conocimientos_habilidades">
+                                            <section *ngFor="let habilidad of GPI_conocimientos_habilidades.controls; let i=index; ">
+                                                <label for="habilidades">Habilidades</label>
+                                                <input placeholder="Ingrese una habilidad" id="habilidades" value="" [formControlName]="i">
+                                                <button type="button" mat-raised-button *ngIf="this.form.controls.GPI_conocimientos_habilidades['controls'].length > 1" (click)="deleteGPIConocimientosBasicos(i)">
+                                        Eliminar <mat-icon> delete</mat-icon>
+                                      </button>
+                                            </section>
+                                            <button type="button" mat-raised-button (click)="agregarHabilidad()" disabled="{{this.form.controls.GPI_conocimientos_habilidades.invalid}}">Agregar<mat-icon> add</mat-icon></button>
+                                        </div>
+                                    </div>
+                                    <!-----------------------Inicio del GPI_habilidades----------------------------->
+
+
+                                    <!-----------------------Inicio del GPI_conocimientos_aptitudes_valores----------------------------->
+                                    <div class="input-section-form">
+                                        <div formArrayName="GPI_conocimientos_aptitudes_valores">
+                                            <section *ngFor="let aptitud of GPI_conocimientos_aptitudes_valores.controls; let i=index; ">
+                                                <label for="aptitudes_valores">Aptitudes y/o valores</label>
+                                                <input placeholder="Ingrese una aptitud y/o valor" id="aptitudes_vlores" value="" [formControlName]="i">
+                                                <button type="button" *ngIf="this.form.controls.GPI_conocimientos_aptitudes_valores['controls'].length > 1" mat-raised-button (click)="deleteAptitudValor(i)">
+                                        Eliminar <mat-icon> delete</mat-icon>
+                                      </button>
+                                            </section>
+                                            <button type="button" mat-raised-button (click)="agregarAptitudValor()" disabled="{{ form.controls['GPI_conocimientos_aptitudes_valores'].invalid }}">Agregar<mat-icon> add</mat-icon></button>
+                                        </div>
+                                    </div>
+                                    <!-----------------------Inicio del GPI_conocimientos_aptitudes_valores----------------------------->
+
+                                </mat-expansion-panel>
+                            </mat-accordion>
+
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            Perfil de egreso
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                                    <!-----------------------Inicio del GPE_start----------------------------->
+                                    <mat-card-title>Perfil de egreso</mat-card-title>
+                                    <div class="input-section-form">
+                                        <label for="pe_texto_introductorio">Texto introductorio</label>
+                                        <textarea placeholder="Texto de introducción" id="pe_texto_introductorio" value="" formControlName="GPE_start"></textarea>
+                                    </div>
+
+                                    <!-----------------------Fin del GPE_start----------------------------->
+
+
+
+                                    <!-----------------------Inicio del GPE_capcidades----------------------------->
+                                    <div class="input-section-form">
+                                        <div formArrayName="GPE_capacidades">
+                                            <section *ngFor="let capacidad of GPE_capacidades.controls; let i=index; ">
+                                                <label for="gpe_capacidades">Capacidades</label>
+                                                <input id="capacidades" placeholder="Ingrese una capacidad" value="" [formControlName]="i" id="gpe_capacidades">
+                                                <button type="button" mat-raised-button *ngIf="this.form.controls.GPE_capacidades['controls'].length > 1" (click)="deleteGPECapacidades(i)">
+                                          Eliminar <mat-icon> delete</mat-icon>
+                                      </button>
+                                            </section>
+                                            <button type="button" mat-raised-button (click)="agregarGPECapacidad()" disabled="{{ form.controls['GPE_capacidades'].invalid }}">Agregar<mat-icon> add</mat-icon></button>
+                                        </div>
+                                    </div>
+                                    <!-----------------------Fin del GPE_capacidades----------------------------->
+
+
+                                    <!-----------------------Inicio GPE_competencias----------------------------->
+                                    <div class="input-section-form">
+                                        <div formArrayName="GPE_competencias">
+                                            <section *ngFor="let competencia of GPE_competencias.controls; let i=index; ">
+                                                <label for="gpe_competencias">Competencias</label>
+                                                <input placeholder="Ingrese una competencia" value="" [formControlName]="i" id="gpe_competencias">
+                                                <button type="button" mat-raised-button *ngIf="this.form.controls.GPE_competencias['controls'].length > 1" (click)="deleteGPECompetencias(i)">
+                                        Eliminar <mat-icon> delete</mat-icon>
+                                      </button>
+                                            </section>
+                                            <button type="button" mat-raised-button disabled="{{ form.controls['GPE_competencias'].invalid }}" (click)="agregarGPECompetencia()">Agregar<mat-icon> add</mat-icon></button>
+                                        </div>
+                                    </div>
+                                    <!-----------------------Fin GPE_competencias----------------------------->
+
+
+                                    <!-----------------------Inicio GPE_conocimientos----------------------------->
+                                    <div class="input-section-form">
+                                        <div formArrayName="GPE_conocimientos">
+                                            <section *ngFor="let competencia of GPE_conocimientos.controls; let i=index; ">
+                                                <label for="gpe_conocimientos">Conocimientos</label>
+                                                <input placeholder="Ingrese un conocimiento" value="" [formControlName]="i" id="gpe_conocimientos">
+                                                <button type=" button " mat-raised-button *ngIf="this.form.controls.GPE_conocimientos[ 'controls'].length> 1" (click)="deleteGPEConocimientos(i)"> Eliminar
+                                              <mat-icon>
+                                              delete
+                                              </mat-icon>
+                                      </button>
+                                            </section>
+                                            <button type="button" mat-raised-button disabled="{{ form.controls['GPE_conocimientos'].invalid }}" (click)="agregarGPEConocimiento()">Agregar<mat-icon> add</mat-icon></button>
+                                        </div>
+                                    </div>
+                                    <!-----------------------Fin GPE_conocimientos----------------------------->
+
+
+                                    <!-----------------------Inicio GPE_habilidades----------------------------->
+                                    <div class="input-section-form">
+                                        <div formArrayName="GPE_habilidades">
+                                            <section *ngFor="let competencia of GPE_habilidades.controls; let i=index; ">
+                                                <label for="gpe_habilidades">Habilidades</label>
+                                                <input placeholder="Ingrese una habilidad" value="" [formControlName]="i" id="gpe_habilidades">
+                                                <button type="button" mat-raised-button *ngIf="this.form.controls.GPE_habilidades['controls'].length > 1" (click)="deleteGPEHabilidades(i)">
+                                        Eliminar <mat-icon> delete</mat-icon>
+                                      </button>
+                                            </section>
+                                            <button type="button" mat-raised-button (click)="agregarGPEHabilidad()" disabled="{{ form.controls['GPE_habilidades'].invalid }}">
+                                    Agregar
+                                    <mat-icon>
+                                      add
+                                    </mat-icon>
+                                  </button>
+                                        </div>
+                                    </div>
+                                    <!-----------------------Fin GPE_habilidades----------------------------->
+
+
+                                    <!-----------------------Inicio GPE_aptitudes----------------------------->
+                                    <div class="input-section-form">
+                                        <div formArrayName="GPE_aptitudes">
+                                            <section *ngFor="let competencia of GPE_aptitudes.controls; let i=index; ">
+                                                <label for="gpe_aptitudes">Aptitudes</label>
+                                                <input placeholder="Ingrese una aptitud" value="" [formControlName]="i" id="gpe_aptitudes">
+                                                <button type="button" mat-raised-button *ngIf="this.form.controls.GPE_aptitudes['controls'].length > 1" (click)="deleteGPEAptitudes(i)">
+                                        Eliminar
+                                        <mat-icon>
+                                          delete
+                                        </mat-icon>
+                                      </button>
+                                            </section>
+                                            <button type="button" mat-raised-button disabled="{{ form.controls['GPE_aptitudes'].invalid }}" (click)="agregarGPEAptitud()">Agregar<mat-icon> add</mat-icon></button>
+                                        </div>
+                                    </div>
+                                    <!-----------------------Fin GPE_aptitudes----------------------------->
+
+                                </mat-expansion-panel>
+                            </mat-accordion>
+
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            Planes de estudio
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+
+
+                                    <!-----------------------Inicio GPES_planes_estudio----------------------------->
+                                    <mat-card-title>Planes de estudio</mat-card-title>
+                                    <div class="input-section-form">
+                                        <label>Objetivo general</label>
+                                        <textarea placeholder="Ingrese el objetivo general" value="" formControlName="GPES_objetivo_general"></textarea>
+                                    </div>
+                                    <!-----------------------Fin GPES_planes_estudio---------------------------->
+
+
+                                    <!-----------------------Inicio GPES_objetivos_especificos----------------------------->
+                                    <div class="input-section-form">
+                                        <div formArrayName="GPES_objetivos_especificos">
+                                            <section *ngFor="let competencia of GPES_objetivos_especificos.controls; let i=index; ">
+                                                <label for="gpes_objetivos_especificos">Objetvios Especificos</label>
+                                                <input placeholder="Ingrese una objetvio" value="" [formControlName]="i" id="gpes_objetivos_especificos">
+                                                <button type="button" mat-raised-button *ngIf="this.form.controls.GPES_objetivos_especificos['controls'].length > 1" (click)="deleteGPESObjetivoEspecificos(i)">
+                                        Eliminar
+                                        <mat-icon>
+                                          delete
+                                        </mat-icon>
+                                      </button>
+                                            </section>
+                                            <button type="button" mat-raised-button disabled="{{ form.controls['GPES_objetivos_especificos'].invalid }}" (click)="agregarGPESObjetivoEspecificos()">Agregar<mat-icon> add</mat-icon></button>
+                                        </div>
+                                    </div>
+                                    <!-----------------------Fin GPE_objetivos_especificos---------------------------->
+
+
+
+                                    <!-----------------------Inicio GPES_start----------------------------->
+                                    <div class="input-section-form">
+                                        <label for="gpes_start">Texto introductorio</label>
+                                        <textarea placeholder="Ingrese un texto de introducción" value="" formControlName="GPES_star" id="gpes_start"></textarea>
+                                    </div>
+                                    <!-----------------------Fin GPES_start---------------------------->
+
+
+
+                                    <!-----------------------Inicio GPES_metas----------------------------->
+                                    <div class="input-section-form">
+                                        <div formArrayName="GPES_metas">
+                                            <section *ngFor="let competencia of GPES_metas.controls; let i=index; ">
+                                                <label for="gpes_metas">Metas</label>
+                                                <input placeholder="Ingrese una meta" value="" [formControlName]="i" id="gpes_metas">
+                                                <button type="button" mat-raised-button *ngIf="this.form.controls.GPES_metas['controls'].length > 1" (click)="deleteGPESMetas(i)">
+                                        Eliminar
+                                        <mat-icon>
+                                          delete
+                                        </mat-icon>
+                                      </button>
+                                            </section>
+                                            <button type="button" mat-raised-button disabled="{{ form.controls['GPES_metas'].invalid }}" (click)="agregarGPESMeta()">Agregar<mat-icon> add</mat-icon></button>
+                                        </div>
+                                    </div>
+                                    <!-----------------------Fin GPE_metas----------------------------->
+
+
+
+
+                                    <!-----------------------Inicio GPES_vision----------------------------->
+                                    <div class="input-section-form">
+                                        <label for="gpes_vision">Vision</label>
+                                        <textarea placeholder="Ingrese la visión" value="" formControlName="GPES_vision" id="gpes_vision"></textarea>
+                                    </div>
+                                    <!-----------------------Fin GPES_vision---------------------------->
+
+                                    <!-----------------------Inicio GPESAB_datos----------------------------->
+                                    <div class="input-section-form">
+                                        <div formArrayName="GPESAB_datos" class="form-group">
+
+                                            <section *ngFor="let control of form.controls.GPESAB_datos['controls'];let i=index" [formGroupName]="i">
+                                                <label for="gpesab_asignaturas_basicas">Asignarutas básicas</label>
+                                                <input placeholder="Clave" formControlName="clave_materia" id="gpesab_asignaturas_basicas">
+                                                <label for="gpesab_nombre_materia">Nombre de la materia</label>
+                                                <input placeholder="Nombre de la materia" formControlName="nombre_materia" id="gpesab_nombre_materia">
+                                                <label for="gpesab_enlace_temario">Nombre de la materia</label>
+                                                <input placeholder="Enlace del temario" formControlName="enlace_temario_materia" id="gpesab_enlace_temario">
+                                                <button type="button" mat-raised-button *ngIf="this.form.controls.GPESAB_datos['controls'].length > 1" (click)="deleteGPESABDatos(i)">
+                                        Eliminar <mat-icon> delete</mat-icon>
+                                      </button>
+                                            </section>
+                                            <button type="button" mat-raised-button disabled="{{ form.controls['GPESAB_datos'].invalid }}" (click)="agregarGPESAB_datos()">
+                                    Agregar
+                                    <mat-icon>
+                                      add
+                                    </mat-icon>
+                                  </button>
+
+                                        </div>
+                                    </div>
+
+                                    <!-----------------------Fin GPEAB_datos----------------------------->
+
+
+
+                                    <!-----------------------Inicio GPESAO_datos----------------------------->
+                                    <div class="input-section-form">
+                                        <div formArrayName="GPESAO_datos">
+                                            <section *ngFor="let control of form.controls.GPESAO_datos['controls'];let i=index" [formGroupName]="i">
+                                                <label for="gpesao_clave_materia">Clave de la materia</label>
+                                                <input placeholder="Clave" formControlName="clave_materia" id="gpesao_clave_materia">
+                                                <label for="gpesao_nombre_materia">Nombre de la materia</label>
+                                                <input placeholder="Nombre de la materia" formControlName="nombre_materia" id="gpesao_nombre_materia">
+                                                <label for="gpesao_enlace_temario">Enlace temario</label>
+                                                <input placeholder="Enlace del temario" formControlName="enlace_temario_materia" id="gpesao_enlace_temario">
+                                                <button type="button" mat-raised-button *ngIf="this.form.controls.GPESAO_datos['controls'].length > 1" (click)="deleteGPESAODatos(i)">
+                                        Eliminar
+                                          <mat-icon>
+                                            delete
+                                          </mat-icon>
+                                      </button>
+                                            </section>
+                                            <button type="button" mat-raised-button disabled="{{ form.controls['GPESAO_datos'].invalid }}" (click)="agregarGPESAO_datos()">Agregar<mat-icon> add</mat-icon></button>
+                                        </div>
+                                    </div>
+                                    <!-----------------------Fin GPESAO_datos----------------------------->
+
+                                    <!-----------------------Inicio GPES_seminario_tesis----------------------------->
+                                    <div class="input-section-form">
+                                        <div formArrayName="GPES_seminario_tesis">
+
+                                            <section *ngFor="let control of form.controls.GPES_seminario_tesis['controls'];let i=index" [formGroupName]="i">
+                                                <label for="gpes_seminario_tesis">Clave de la materia</label>
+                                                <input placeholder="Clave" formControlName="clave_materia" id="gpes_seminario_tesis">
+                                                <label for="gpes_seminario_tesis_clave_materia">Nombre de la materia</label>
+                                                <input placeholder="Nombre de la materia" formControlName="nombre_materia" id="gpes_seminario_tesis_clave_materia">
+                                                <label for="gpes_seminario_tesis_enlace_temario">Enlace del temario</label>
+                                                <input placeholder="Enlace del temario" formControlName="enlace_temario_materia" id="gpes_seminario_tesis_enlace_temario">
+                                                <button type="button" mat-raised-button *ngIf="this.form.controls.GPES_seminario_tesis['controls'].length > 1" (click)="deleteGPES_seminario_tesis(i)">
+                                        Eliminar
+                                        <mat-icon>
+                                          delete
+                                        </mat-icon>
+                                      </button>
+                                            </section>
+                                            <button type="button" mat-raised-button disabled="{{ form.controls['GPES_seminario_tesis'].invalid }}" (click)="agregarGPES_seminario_tesis()">Agregar<mat-icon> add</mat-icon></button>
+                                        </div>
+                                    </div>
+                                    <!-----------------------Fin GPES_seminario_tesis----------------------------->
+
+
+
+                                </mat-expansion-panel>
+                            </mat-accordion>
+
+
+
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            LGAC
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+
+                                    <!-----------------------Inicio GLGAC----------------------------->
+                                    <div class="input-section-form">
+                                        <label for="glgac">LGAC</label>
+                                        <textarea placeholder="Ingrese la información" value="" formControlName="GLGAC" id="glgac"></textarea>
+                                    </div>
+                                    <!-----------------------Fin GLGAC---------------------------->
+
+
+                                </mat-expansion-panel>
+                            </mat-accordion>
+
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            Proceso de selección de aspirantes
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+
+                                    <!-----------------------Inicio GPSA_start----------------------------->
+                                    <mat-card-title>Selección de aspirantes</mat-card-title>
+                                    <div class="input-section-form">
+                                        <label for="gpsa_start">Texto introductorio</label>
+                                        <textarea placeholder="Ingrese un texto introductorio" value="" formControlName="GPSA_start" id="gpsa_start"></textarea>
+                                    </div>
+                                    <!-----------------------Fin GPSA_start---------------------------->
+
+
+
+                                    <!-----------------------Inicio GPSA_requisitos----------------------------->
+                                    <div class="input-section-form">
+                                        <div formArrayName="GPSA_requisitos">
+
+                                            <section *ngFor="let competencia of GPSA_requisitos.controls; let i=index; ">
+                                                <label for="gpsa_requisitos">Requisitos</label>
+                                                <input placeholder="Ingrese un requisito" value="" [formControlName]="i" id="gpsa_requisitos">
+                                                <button type="button" mat-raised-button *ngIf="this.form.controls.GPSA_requisitos['controls'].length > 1" (click)="deleteGPSA_requisitos(i)">
+                                        Eliminar
+                                        <mat-icon>
+                                          delete
+                                        </mat-icon>
+                                      </button>
+                                            </section>
+                                            <button type="button" mat-raised-button disabled="{{ form.controls['GPSA_requisitos'].invalid }}" (click)="agregarGPSA_requisitos()">Agregar<mat-icon> add</mat-icon></button>
+                                        </div>
+                                    </div>
+                                    <!-----------------------Fin GPSA_requisitos----------------------------->
+
+                                </mat-expansion-panel>
+                            </mat-accordion>
+
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            Característica de Tésis
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                                    <!-----------------------Inicio GCT_start----------------------------->
+                                    <mat-card-title>Características de tésis</mat-card-title>
+                                    <div class="input-section-form">
+                                        <label for="gct_start">Texto introductorio</label>
+                                        <textarea placeholder="Ingrese un texto introductorio" value="" formControlName="GCT_start" id="gct_start"></textarea>
+                                    </div>
+                                    <!-----------------------Fin GCT_start---------------------------->
+
+
+                                    <!-----------------------Inicio GCT_requisitos----------------------------->
+                                    <div class="input-section-form">
+                                        <div formArrayName="GCT_requisitos">
+
+                                            <section *ngFor="let competencia of GCT_requisitos.controls; let i=index; ">
+                                                <label for="gct_requisitos">Requisitos</label>
+                                                <input placeholder="Ingrese un requisito" value="" [formControlName]="i" id="gct_requisitos">
+                                                <button type="button" mat-raised-button *ngIf="this.form.controls.GCT_requisitos['controls'].length > 1" (click)="deleteGCT_requisitos(i)">
+                                                                            Eliminar
+                                                                            <mat-icon>
+                                                                              delete
+                                                                            </mat-icon>
+                                                                           </button>
+                                            </section>
+                                            <button type="button" mat-raised-button disabled="{{ form.controls['GCT_requisitos'].invalid }}" (click)="agregarGCT_requisitos()">Agregar<mat-icon> add</mat-icon></button>
+                                        </div>
+                                    </div>
+                                    <!-----------------------Fin GCT_requisitos----------------------------->
+
+                                </mat-expansion-panel>
+                            </mat-accordion>
+
+                        </div>
+                        <!--**FIN SECCION GENERAL**-->
+
+
+
+
+
+                    </mat-expansion-panel>
+                </mat-accordion>
+
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>Procesos admnistrativos</mat-panel-title>
+                            <mat-panel-description>
+                                Inforamción sobre procesos administratvios
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+
+                        <!--**INICIO PROCESOS ADMINISTRATVIOS**-->
+                        <div class="procesos-administratvios-section">
+
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            Inicio y requisitos
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+
+                                    <!-----------------------Inicio del PARI_start----------------------------->
+                                    <mat-card-title>Procesos administrativos</mat-card-title>
+                                    <div class="input-section-form">
+                                        <label for="pari_start">Texto introductorio</label>
+                                        <textarea placeholder="Texto de introducción" value="" formControlName="PARI_start" id="pari_start"></textarea>
+                                    </div>
+                                    <!-----------------------Fin del PARI_start----------------------------->
+
+
+                                    <!-----------------------Inicio del PARI_requisitos----------------------------->
+                                    <div class="input-section-form">
+                                        <div formArrayName="PARI_requisitos">
+                                            <section *ngFor="let conocimiento of PARI_requisitos.controls; let i=index; ">
+                                                <label for="pari_requisitos_ingreso">Requisitos ingreso</label>
+                                                <input placeholder="Ingrese un requisito" value="" [formControlName]="i" id="pari_requisitos_ingreso">
+                                                <button type="button" mat-raised-button *ngIf="this.form.controls.PARI_requisitos['controls'].length > 1" (click)="deletePARI_requisitos(i)">
+                                        Eliminar
+                                        <mat-icon>
+                                            delete
+                                        </mat-icon>
+                                      </button>
+                                            </section>
+                                            <button type="button" mat-raised-button disabled="{{ form.controls['PARI_requisitos'].invalid }}" (click)="agregarPARI_requisitos()">Agregar<mat-icon> add</mat-icon></button>
+                                        </div>
+
+                                    </div>
+                                    <!-----------------------Fin del PARI_requisitos----------------------------->
+
+
+                                </mat-expansion-panel>
+                            </mat-accordion>
+
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            Documentación
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                                    <!-----------------------Inicio del PARI_documentacion_start----------------------------->
+                                    <div class="input-section-form">
+                                        <label for="pari_documentacion_start ">Texto introductorio</label>
+                                        <textarea placeholder="Texto de introducción " value=" " formControlName="PARI_documentacion_start" id="pari_documentacion_start "></textarea>
+                                    </div>
+
+                                    <!-----------------------Fin PARI_documentacion_start----------------------------->
+
+
+                                    <!-----------------------Inicio del PARI_documentos----------------------------->
+                                    <div class="input-section-form ">
+                                        <div formArrayName="PARI_documentos">
+
+                                            <section *ngFor="let conocimiento of PARI_documentos.controls; let i=index; ">
+                                                <label for="pari_documentos">Documentos</label>
+                                                <input placeholder="Ingrese un docuemnto" value=" " [formControlName]="i" id="pari_documentos">
+                                                <button type="button " mat-raised-button *ngIf="this.form.controls.PARI_documentos[ 'controls'].length> 1" (click)="deletePARI_documentos(i)"> Eliminar
+                                        <mat-icon> delete</mat-icon>
+                                      </button>
+                                            </section>
+                                            <button type="button" mat-raised-button disabled="{{ form.controls['PARI_documentos'].invalid }}" (click)="agregarPARI_documentos()">Agregar<mat-icon> add</mat-icon></button>
+                                        </div>
+                                    </div>
+                                    <!-----------------------Fin del PARI_rdocumentos----------------------------->
+
+                                </mat-expansion-panel>
+                            </mat-accordion>
+
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            Requisitos de permanencia
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                                    <!-----------------------Inicio del PARP_start----------------------------->
+                                    <mat-card-subtitle>Requisitos permanencia</mat-card-subtitle>
+                                    <div class="input-section-form">
+                                        <label for="parp_start">Texto introductorio</label>
+                                        <textarea placeholder="Texto de introducción" value="" formControlName="PARP_start" id="parp_start"></textarea>
+                                    </div>
+                                    <!-----------------------Fin PARP_start----------------------------->
+
+                                    <!-----------------------Inicio del PARP_requisitos----------------------------->
+                                    <div class="input-section-form">
+                                        <div formArrayName="PARP_requisitos">
+
+                                            <section *ngFor="let requisito of PARP_requisitos.controls; let i=index; ">
+                                                <label for="parp_requisitos">Requisitos</label>
+                                                <input placeholder="Ingrese un requisito" value="" [formControlName]="i" id="parp_requisitos">
+                                                <button type="button" mat-raised-button *ngIf="this.form.controls.PARP_requisitos['controls'].length > 1" (click)="deletePARP_requisitos(i)">
+                                        Eliminar <mat-icon> delete</mat-icon>
+                                      </button>
+                                            </section>
+                                            <button type="button" mat-raised-button disabled="{{ form.controls['PARP_requisitos'].invalid }}" (click)="agregarPARP_requisitos()">Agregar<mat-icon> add</mat-icon></button>
+                                        </div>
+                                    </div>
+                                    <!-----------------------Fin del PARP_requisitos----------------------------->
+
+                                </mat-expansion-panel>
+                            </mat-accordion>
+
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            Requisitos de egreso
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+
+                                    <!-----------------------Inicio del PARE_start----------------------------->
+                                    <mat-card-subtitle>Requisitos egreso</mat-card-subtitle>
+                                    <div class="input-section-form">
+                                        <label for="pare_start">Texto introductorio</label>
+                                        <textarea placeholder="Texto de introducción" value="" formControlName="PARE_start" id="pare_start"></textarea>
+                                    </div>
+                                    <!-----------------------Fin PARE_start----------------------------->
+
+
+
+                                    <!-----------------------Inicio del PARE_requisitos----------------------------->
+                                    <div class="input-section-form">
+                                        <div formArrayName="PARE_requisitos">
+
+                                            <section *ngFor="let requisito of PARE_requisitos.controls; let i=index; ">
+                                                <label for="pare_requisitos">Requisitos</label>
+                                                <input placeholder="Ingrese un requisito" value="" [formControlName]="i" id="pare_requisitos">
+                                                <button type="button" mat-raised-button *ngIf="this.form.controls.PARE_requisitos['controls'].length > 1" (click)="deletePARE_requisitos(i)">
+                                         Eliminar <mat-icon> delete</mat-icon>
+                                      </button>
+                                            </section>
+                                            <button type="button" mat-raised-button disabled="{{ form.controls['PARE_requisitos'].invalid }}" (click)="agregarPARE_requisitos()">Agregar<mat-icon> add</mat-icon></button>
+                                        </div>
+                                    </div>
+                                    <!-----------------------Fin del PARE_requisitos----------------------------->
+
+
+                                </mat-expansion-panel>
+                            </mat-accordion>
+
+
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            Requisitos de egreso
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+
+
+
+                                    <!-----------------------Inicio del PARE_obtencion_grado_start----------------------------->
+                                    <mat-card-subtitle>Obtencion de grado</mat-card-subtitle>
+
+                                    <div class="input-section-form">
+                                        <label for="pare_obtencion_de_grado">Texto introductorio</label>
+                                        <textarea placeholder="Texto de introducción " value=" " formControlName="PARE_obtencion_grado_start" id="pare_obtencion_de_grado"></textarea>
+                                    </div>
+                                    <!-----------------------Fin PARE_obtencion_grado_start----------------------------->
+
+
+
+                                    <!-----------------------Inicio del PARE_obtencion_grado_requisitos----------------------------->
+                                    <div class="input-section-form ">
+                                        <div formArrayName="PARE_obtencion_grado_requisitos">
+
+                                            <section *ngFor="let requisito of PARE_obtencion_grado_requisitos.controls; let i=index; ">
+                                                <label for="pare_requisitos">Requisitos</label>
+                                                <input placeholder="Ingrese un requisito " value=" " [formControlName]="i" id="pare_requisitos">
+                                                <button type="button " mat-raised-button *ngIf="this.form.controls.PARE_obtencion_grado_requisitos[ 'controls'].length> 1" (click)="deletePARE_obtencion_grado_requisitos(i)"> Eliminar
+                                        <mat-icon> delete</mat-icon>
+                                      </button>
+                                            </section>
+                                            <button type="button" mat-raised-button disabled="{{ form.controls['PARE_obtencion_grado_requisitos'].invalid }}" (click)="agregarPARE_obtencion_grado_requisitos()">Agregar<mat-icon> add</mat-icon></button>
+                                        </div>
+                                    </div>
+                                    <!-----------------------Fin del PARE_obtencion_grado_requisitos----------------------------->
+
+
+                                </mat-expansion-panel>
+                            </mat-accordion>
+
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            Becas
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                                    <!-----------------------Inicio del PAB_start----------------------------->
+                                    <mat-card-subtitle>Becas</mat-card-subtitle>
+                                    <div class="input-section-form">
+                                        <label for="pare_becas">Texto introductorio</label>
+                                        <textarea placeholder="Texto de introducción" value="" formControlName="PAB_start" id="pare_becas"></textarea>
+                                    </div>
+                                    <!-----------------------Fin PAB_start----------------------------->
+
+
+
+                                    <!-----------------------Inicio del PAB_requisitos----------------------------->
+                                    <div class="input-section-form">
+                                        <div formArrayName="PAB_requisitos">
+
+                                            <section *ngFor="let requisito of PAB_requisitos.controls; let i=index; ">
+                                                <label for="pab_requisitos">Requisitos</label>
+                                                <input placeholder="Ingrese un requisito" value="" [formControlName]="i" id="pab_requisitos">
+                                                <button type="button" mat-raised-button *ngIf="this.form.controls.PAB_requisitos['controls'].length > 1" (click)="deletePAB_requisitos(i)">
+                                        Eliminar <mat-icon> delete</mat-icon>
+                                      </button>
+                                            </section>
+                                            <button type="button" mat-raised-button disabled="{{ form.controls['PAB_requisitos'].invalid }}" (click)="agregarPAB_requisitos()">Agregar<mat-icon> add</mat-icon></button>
+                                        </div>
+                                    </div>
+                                    <!-----------------------Fin del PAB_requisitos----------------------------->
+
+                                </mat-expansion-panel>
+                            </mat-accordion>
+
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            Descargas
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                                    <!--Inicio de descargas-->
+                                    <div formArrayName="PADescargas" class="form-group">
+
+                                        <div *ngFor="let control of form.controls.PADescargas['controls'];let i=index" [formGroupName]="i">
+                                            <label for="padescargas">Descargas</label>
+                                            <input placeholder="Nombre del documento" formControlName="Descargas_nombre" id="padescargas">
+                                            <label for="padescargas_enlace">Enlace del documento</label>
+                                            <input placeholder="Enlace del documento" formControlName="Descargas_enlace" id="padescargas_enlace">
+                                            <button type="button" mat-raised-button *ngIf="this.form.controls.PADescargas['controls'].length > 1" (click)="deletePADescargas(i)">
+                                    Eliminar <mat-icon> delete</mat-icon>
+                                  </button>
+                                            <button type="button" mat-raised-button disabled="{{ form.controls['PADescargas'].invalid }}" (click)="addPADescargas()">
+                                    Agregar<mat-icon> add</mat-icon>
+                                  </button>
+                                        </div>
+
+                                    </div>
+                                    <!--Fin de descargas-->
+
+                                </mat-expansion-panel>
+                            </mat-accordion>
+
+
+
+
+
+
+
+
+
+
+
+                        </div>
+                        <!--**FIN PROCESOS ADMINISTRATIVOS**-->
+
+
+                    </mat-expansion-panel>
+                </mat-accordion>
+
+                <mat-accordion>
+                    <mat-expansion-panel hideToggle>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Docentes y repositorio de tésis
+                            </mat-panel-title>
+                            <mat-panel-description>
+                                Información sobre el núcleo académico
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+
+                        <!--**DOCENTES**-->
+                        <div class="docentes">
+
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            Docente
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                                    <!-----------------------Inicio de Docentes----------------------------->
+                                    <div formArrayName="NADocentes" class="form-group">
+
+                                        <section *ngFor="let control of form.controls.NADocentes['controls'];let i=index" [formGroupName]="i">
+                                            <label for="nadocentes">Nombre docente</label>
+                                            <input placeholder="Nombre del docente" formControlName="DNombre" id="nadocentes">
+                                            <label for="nadocentes_nombre">Grado académico</label>
+                                            <input placeholder="Grado académico del docente" formControlName="DGrado_academico" id="nadocentes_nombre">
+                                            <label for="nadocentes_tiempo">Tiempo de impartimiento</label>
+                                            <input placeholder="Tiempo de imparimiento (completo o parcial)" formControlName="DTiempo" id="nadocentes_tiempo">
+                                            <label for="nadocentes_especialidad">Especialidad</label>
+                                            <input placeholder="Especialidad académico del docente" formControlName="DEspecialidad" id="nadocentes_especialidad">
+                                            <label for="nadocentes_curriculum">Curriculum</label>
+                                            <textarea placeholder="Curricúlum del docente" formControlName="DCurriculum" id="nadocentes_curriculum"></textarea>
+                                            <!--Docente Image -->
+                                            <mat-card-title class="mt-4">Imagen del docente</mat-card-title>
+                                            <label for="nadocentes_image_nombre">Nombre de la imagen</label>
+                                            <input placeholder="Nombre " formControlName="DINombre" #title>
+                                            <label for="nadocentes_image_descripcion">Descripción</label>
+                                            <textarea rows="2 " placeholder="Descripción" required #description formControlName="DIDescripcion"></textarea>
+                                            <div class="image-preview mt-4 mb-4 d-flex justify-content-center ">
+                                                <input formControlName="DIPath" type="file" class="d-none" (change)="onPhotoSelected($event) " #photoInput>
+                                                <img [src]=" photoSelected || '../../../../assets/images/UploadImage.png' " class="img-fluid mb-4 " alt=" " (click)="photoInput.click() ">
+                                                <p *ngIf="this.file ">Nombre del archivo: {{this.file.name}}</p>
+                                            </div>
+                                            <!---------Fin DImage------------->
+
+                                            <button type="button " mat-raised-button *ngIf="this.form.controls.NADocentes[ 'controls'].length> 1" (click)="deleteNADocente(i)"> Eliminar
+                              <mat-icon> delete</mat-icon>
+                              </button>
+                                        </section>
+                                        <button type="button" mat-raised-button disabled="{{ form.controls['NADocentes'].invalid }}" (click)="addNADocente()">
+                        Agregar<mat-icon> add</mat-icon>
+                      </button>
+                                    </div>
+                                    <!-----------------------Fin de Docentes----------------------------->
+                                </mat-expansion-panel>
+                            </mat-accordion>
+
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            Repositorio de tésis
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+
+                                    <!-----------------------Inicio de Repositorio tesis----------------------------->
+                                    <div formArrayName="NARepositorio_tesis" class="form-group">
+
+                                        <section *ngFor="let control of form.controls.NARepositorio_tesis['controls'];let i=index" [formGroupName]="i">
+                                            <label for="nadocentes_repositorio_tesis_titulo">Titulo</label>
+                                            <input placeholder="Titulo del documento" formControlName="DTitulo" id="nadocentes_repositorio_tesis_titulo">
+                                            <label for="nadocentes_repositorio_tesis_titulo">Tipo de documento</label>
+                                            <input placeholder="Tipo del documénto ( Artículo, tésis , etc )" formControlName="DTipo" id="nadocentes_repositorio_tesis_titulo">
+                                            <label for="nadocentes_repositorio_tesis_autores">Autores</label>
+                                            <input placeholder="Autores ( separados por coma ) " formControlName="DAutores" id="nadocentes_repositorio_tesis_autores">
+                                            <label for="nadocentes_repositorio_tesis_fecha_publicacion">Fecha Publicación</label>
+                                            <input type="date" placeholder="Fecha de publicación" formControlName="DFecha" id="nadocentes_repositorio_tesis_fecha_publicacion">
+                                            <label for="nadocentes_repositorio_tesis_resumen">Resumen</label>
+                                            <textarea placeholder="Resumen" formControlName="DResumen" id="nadocentes_repositorio_tesis_resumen"></textarea>
+                                            <label for="nadocentes_repositorio_tesis_enlace">Enlace</label>
+                                            <input placeholder="Enlace" formControlName="DEnlace" id="nadocentes_repositorio_tesis_enlace">
+                                            <button type="button" mat-raised-button *ngIf="this.form.controls.NARepositorio_tesis['controls'].length > 1" (click)="deleteNARepositorio_tesis(i)">
+                                  Eliminar <mat-icon> delete</mat-icon>
+                                </button>
+                                        </section>
+                                        <button type="button" mat-raised-button disabled="{{ form.controls['NARepositorio_tesis'].invalid }}" (click)="addNARepositorio_tesis()">
+                                Agregar<mat-icon> add</mat-icon>
+                              </button>
+                                    </div>
+                                    <!-----------------------Fin de Docentes----------------------------->
+
+
+
+                                </mat-expansion-panel>
+                            </mat-accordion>
+
+
+
+
+
+
+
+                        </div>
+                        <!--**DOCENTES**-->
+
+
+
+
+                    </mat-expansion-panel>
+                </mat-accordion>
+
+                <mat-accordion>
+                    <mat-expansion-panel hideToggle>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Alúmnos
+                            </mat-panel-title>
+                            <mat-panel-description>
+                                Información sobre los alúmnos
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+
+                        <!--**ESTUDIANTES**-->
+                        <div class="estudiantes">
+
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            Estudiante
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                                    <!-----------------------Inicio del Estudiantes----------------------------->
+                                    <div formArrayName="Estudiante" class="form-group">
+
+                                        <section *ngFor="let control of form.controls.Estudiante['controls'];let i=index" [formGroupName]="i">
+                                            <label for="estudiantes_nombre">Nombre</label>
+                                            <input placeholder="Nombre del estudiante" formControlName="ENombre" value="" id="estudiantes_nombre">
+                                            <label for="estudiantes_tema_tesis">Tema de tésis</label>
+                                            <input placeholder="Tema de tésis" formControlName="ETema_tesis" value="" id="estudiantes_tema_tesis">
+                                            <label for="estudiantes_tutor">Tutor</label>
+                                            <input placeholder="Tutor" formControlName="ETutor" value="" id="estudiantes_tutor">
+                                            <label for="estudiantes_director_tesis">Director de tésis</label>
+                                            <input placeholder="Director de tésis" formControlName="EDirector_tesis" value="" id="estudiantes_director_tesis">
+                                            <label for="estudiantes_generacion">Generación</label>
+                                            <input type="number" placeholder="Generación" formControlName="generacion" value="" id="estudiantes_generacion">
+                                            <button type="button" mat-raised-button *ngIf="this.form.controls.Estudiante['controls'].length > 1" (click)="deleteEstudiante(i)">
+              Eliminar <mat-icon> delete</mat-icon>
+            </button>
+                                        </section>
+                                        <button type="button" mat-raised-button disabled="{{ form.controls['Estudiante'].invalid }}" (click)="addEstudiante()">
+            Agregar<mat-icon> add</mat-icon>
+          </button>
+                                    </div>
+                                    <!-----------------------Fin del Docentes----------------------------->
+
+                                </mat-expansion-panel>
+                            </mat-accordion>
+
+
+                        </div>
+                        <!--**ESTUDIANTES**-->
+
+                    </mat-expansion-panel>
+                </mat-accordion>
+
+                <mat-accordion>
+                    <mat-expansion-panel hideToggle>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Vinculación
+                            </mat-panel-title>
+                            <mat-panel-description>
+                                Información sobre vinculación
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+
+                        <mat-accordion>
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        Convenios
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+                                <!--**VINCULACION-->
+                                <div class="vinculacion">
+                                    <!-----------------------Inicio de VInformacion----------------------------->
+                                    <mat-card-subtitle>Vinculación</mat-card-subtitle>
+                                    <div class="input-section-form">
+                                        <label for="Vinformacion">Información</label>
+                                        <textarea placeholder="Ingrese la información" value="" formControlName="VInformacion" id="Vinformacion"></textarea>
+                                    </div>
+                                    <!-----------------------Fin VIformacion----------------------------->
+
+
+
+                                    <!-----------------------Inicio del VConvenios----------------------------->
+                                    <div class="input-section-form">
+                                        <div formArrayName="VConvenios" class="form-group">
+                                            <section *ngFor="let control of form.controls.VConvenios['controls'];let i=index" [formGroupName]="i">
+                                                <label for="vconvenios">Nombre</label>
+                                                <input placeholder="Nombre del convenio" formControlName="convenio_nombre" value="" id="vconvenios">
+                                                <label for="vconvenios_enlace">Enlace</label>
+                                                <input placeholder="Enlace del convenio" formControlName="convenio_enlace" value="" id="vconvenios_enlace">
+                                                <button type="button" mat-raised-button *ngIf="this.form.controls.VConvenios['controls'].length > 1" (click)="deleteVConvenios(i)">
+                  Eliminar <mat-icon> delete</mat-icon>
+                </button>
+                                            </section>
+                                            <button type="button" mat-raised-button disabled="{{ form.controls['VConvenios'].invalid }}" (click)="agregarVConvenios()">
+                Agregar<mat-icon> add</mat-icon>
+              </button>
+                                        </div>
+                                    </div>
+                                    <!-----------------------Fin del PAB_requisitos----------------------------->
+
+
+                                </div>
+                                <!--**VINCULACION-->
+                            </mat-expansion-panel>
+                        </mat-accordion>
+
+
+                    </mat-expansion-panel>
+                </mat-accordion>
+
+
+                <mat-accordion>
+                    <mat-expansion-panel hideToggle>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Normas y estatútos
+                            </mat-panel-title>
+                            <mat-panel-description>
+                                Información sobre normas y estatútos
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <!--**NORMAS Y ESTATUTOS**-->
+                        <div class="nomras-estatutos">
+                            <mat-card-title>Normas y estatutos</mat-card-title>
+                            <!-----------------------Inicio de normas y estatutos ----------------------------->
+                            <div class="input-section-form">
+                                <div formArrayName="NEInformacion" class="form-group">
+
+                                    <section *ngFor="let control of form.controls.NEInformacion['controls'];let i=index" [formGroupName]="i">
+                                        <label for="nenombre">Nombre</label>
+                                        <input placeholder="Nombre de la norma" formControlName="NENombre" id="nenombre">
+                                        <label for="neenlace">Enlace</label>
+                                        <input placeholder="Enlace de la norma" formControlName="NEEnlace" id="neenlace">
+                                        <button type="button" mat-raised-button *ngIf="this.form.controls.NEInformacion['controls'].length > 1" (click)="deleteNEInformacion(i)">
+                Eliminar <mat-icon> delete</mat-icon>
+              </button>
+                                    </section>
+                                    <button type="button" mat-raised-button disabled="{{ form.controls['NEInformacion'].invalid }}" (click)="addNEInformacion()">
+              Agregar<mat-icon> add</mat-icon>
+            </button>
+
+                                </div>
+                            </div>
+                            <!-----------------------Inicio de normas y estatutos----------------------------->
+                        </div>
+                        <!--**NORMAS Y ESTATUTOS**-->
+                    </mat-expansion-panel>
+                </mat-accordion>
+
+                <mat-accordion>
+                    <mat-expansion-panel hideToggle>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Contacto
+                            </mat-panel-title>
+                            <mat-panel-description>
+                                Información sobre contacto
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+
+                        <!--**CONTACTOS-->
+                        <div class="contacto">
+
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            Telefonos
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                                    <!-----------------------Inicio del Telefonos----------------------------->
+                                    <div class="input-section-form">
+                                        <div formArrayName="CTelefonos">
+
+                                            <section *ngFor="let requisito of CTelefonos.controls; let i=index; ">
+                                                <label for="ctelefono">Telefono</label>
+                                                <input placeholder="Ingrese un teléfono" value="" [formControlName]="i" id="ctelefono">
+                                                <button type="button" mat-raised-button *ngIf="this.form.controls.CTelefonos['controls'].length > 1" (click)="deleteVConvenios(i)">
+                Eliminar <mat-icon> delete</mat-icon>
+              </button>
+                                            </section>
+                                            <button type="button" mat-raised-button disabled="{{ form.controls['CTelefonos'].invalid }}" (click)="agregarCTelefonos()">Agregar<mat-icon> add</mat-icon></button>
+                                        </div>
+                                    </div>
+                                    <!-----------------------Fin del Telefonos----------------------------->
+
+                                </mat-expansion-panel>
+                            </mat-accordion>
+
+
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            Redes
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                                    <!-----------------------Inicio de Redes----------------------------->
+                                    <div class="input-section-form">
+                                        <div formArrayName="CRedes" class="form-group">
+                                            <label>Redes</label>
+                                            <section *ngFor="let control of form.controls.CRedes['controls'];let i=index" [formGroupName]="i">
+                                                <label for="credes_nombre">Red social</label>
+                                                <input placeholder="Nombre de la red social" formControlName="RNombre" id="credes_nombre">
+                                                <label for="credes_cuenta">Cuenta</label>
+                                                <input placeholder="Cuenta de la red social" formControlName="RCuenta" id="credes_cuenta">
+                                                <button type="button" mat-raised-button *ngIf="this.form.controls.CRedes['controls'].length > 1" (click)="deleteCRedes(i)">
+                Eliminar <mat-icon> delete</mat-icon>
+              </button>
+                                            </section>
+                                            <button type="button" mat-raised-button disabled="{{ form.controls['CRedes'].invalid }}" (click)="addCRedes()">
+              Agregar<mat-icon> add</mat-icon>
+            </button>
+
+                                        </div>
+                                    </div>
+                                    <!-----------------------Fin de Redes----------------------------->
+
+
+                                </mat-expansion-panel>
+                            </mat-accordion>
+
+
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            Direcciones
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                                    <!-----------------------Inicio de Direccion----------------------------->
+                                    <div class="input-section-form">
+                                        <div formArrayName="CDireccion">
+
+                                            <section *ngFor="let requisito of CDireccion.controls; let i=index; ">
+                                                <label for="cdireccion">Dirección</label>
+                                                <input placeholder="Ingrese una dirección" value="" [formControlName]="i" id="cdireccion">
+                                                <button type="button" mat-raised-button *ngIf="this.form.controls.CDireccion['controls'].length > 1" (click)="deleteVConvenios(i)">Borrar</button>
+                                            </section>
+                                            <button type="button" mat-raised-button disabled="{{ form.controls['CDireccion'].invalid }}" (click)="addCDireccion()">Agregar<mat-icon> add</mat-icon></button>
+                                        </div>
+                                    </div>
+                                    <!-----------------------Fin de Direccion----------------------------->
+
+                                </mat-expansion-panel>
+                            </mat-accordion>
+
+
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            Correos
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                                    <!-----------------------Inicio de Correo----------------------------->
+                                    <div class="input-section-form">
+                                        <div formArrayName="CCorreo">
+
+                                            <section *ngFor="let correo of CCorreo.controls; let i=index; ">
+                                                <label for="ccorreo">Correo</label>
+                                                <input placeholder="Ingrese un correo" value="" [formControlName]="i" id="ccorreo">
+                                                <button type="button" mat-raised-button *ngIf="this.form.controls.CCorreo['controls'].length > 1" (click)="deleteCCorreo(i)">Borrar</button>
+                                            </section>
+                                            <button type="button" mat-raised-button disabled="{{ form.controls['CCorreo'].invalid }}" (click)="addCCorreo()">Agregar<mat-icon> add</mat-icon></button>
+                                        </div>
+                                    </div>
+                                    <!-----------------------Fin de Direccion----------------------------->
+
+                                </mat-expansion-panel>
+                            </mat-accordion>
+
+                        </div>
+                        <!--**CONTACTOS-->
+
+                    </mat-expansion-panel>
+                </mat-accordion>
+
+
+                <div class="buttons">
+                    <!--**BUTTONS**-->
+                    <button type="submit" mat-raised-button id="guardar">
+                  Guardar
+                  <mat-icon>save</mat-icon>
+                </button>
+
+                    <button type="reset" mat-raised-button id="resetForm" (click)="formReset()">
+                  <mat-icon>undo</mat-icon>
+                  Deshacer
+
+                </button>
+
+                    <button type="reset" mat-raised-button (click)="redirectToMastersList()">
+                  <mat-icon>arrow_back</mat-icon>
+                  Atras
+
+                </button>
+                    <!--**BUTTONS**-->
+                </div>
+
+
+
+            </form>
+            <!-----------------------Fin del form----------------------------->
+        </mat-card-content>
+
+    </mat-card>
+
+</div>

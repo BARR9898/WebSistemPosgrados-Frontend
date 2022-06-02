@@ -1,0 +1,13 @@
+.main {
+    min-width: 560px;
+}
+
+.data {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+a {
+    text-decoration: none;
+}

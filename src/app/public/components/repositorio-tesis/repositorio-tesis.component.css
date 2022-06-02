@@ -1,0 +1,50 @@
+.main {
+    width: 100%;
+    height: auto;
+    display: flex;
+    margin-top: 40px;
+}
+
+.info {
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    flex-direction: column;
+}
+
+.data {
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    text-align: justify;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.actions {
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+a {
+    background-color: rgb(7, 49, 117);
+    color: white;
+    transition: background-color .5s;
+}
+
+a:hover {
+    background-color: rgb(10, 71, 168);
+}
+
+#title {
+    color: rgb(6, 40, 95);
+    font-weight: bold;
+}

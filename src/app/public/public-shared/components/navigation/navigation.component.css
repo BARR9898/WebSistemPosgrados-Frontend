@@ -1,0 +1,78 @@
+button {
+    font-size: 16px;
+    color: #013a63;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    color: #013a63;
+    transition: background-color .5s;
+}
+
+.mat-menu-content .ng-tns-c44-0 {
+    padding: 0;
+}
+
+img {
+    width: 80px;
+    height: auto;
+}
+
+span {
+    margin-right: 3px;
+    color: #013a63;
+}
+
+button {
+    width: auto;
+}
+
+#menu {
+    padding: 10px;
+    display: flex;
+    height: auto;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+}
+
+#master-name {
+    font-size: 22px;
+    width: 100%;
+    color: whitesmoke;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    background-color: #104369;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+.back {
+    width: auto;
+    height: auto;
+}
+
+#back-button {
+    background-color: #1a5888;
+    color: whitesmoke;
+    transition: background-color .5s;
+}
+
+#back-button:hover {
+    background-color: #2870a7;
+}
+
+i {
+    color: whitesmoke;
+}
+
+.toolbar {
+    min-width: 580px;
+    background-color: #ececec;
+}
+
+.col {
+    display: flex;
+    justify-content: start;
+}
