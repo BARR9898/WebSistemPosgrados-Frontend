@@ -1,9 +1,16 @@
+.main {
+    overflow: scroll;
+    max-width: 100%;
+}
+
 mat-card {
     margin-top: 40px;
     width: 80%;
     height: auto;
-    overflow: scroll;
-    border-radius: 8px;
+    overflow: auto;
+    border-radius: 10px;
+    box-shadow: 7px 7px 20px#054375!important;
+    margin-bottom: 20px;
 }
 
 .image {
@@ -15,7 +22,7 @@ mat-card {
 
 img {
     width: 300px;
-    height: 300px;
+    height: 300;
 }
 
 mat-title {
@@ -40,19 +47,24 @@ p {
 }
 
 .info {
+    margin-top: 10px;
     font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
 }
 
 mat-accordion {
     display: flex;
     justify-content: center;
+    height: auto;
 }
 
 mat-expansion-panel {
     width: 85%;
     height: auto;
-    margin: 7px;
-    margin-bottom: 20px;
+    margin: 10px;
 }
 
 table {
@@ -79,4 +91,14 @@ th {
     background-color: #315788;
     color: white;
     border-radius: 1px;
+}
+
+mat-card-footer {
+    padding: 10px;
+    background-color: #0543753d;
+    overflow: auto;
+}
+
+mat-expansion-panel-content {
+    overflow: auto;
 }

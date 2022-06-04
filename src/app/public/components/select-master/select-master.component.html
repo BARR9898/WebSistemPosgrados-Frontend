@@ -1,34 +1,59 @@
-<div class="row row-sm-12 row-md-12 row-lg-12 toolbar mb-4">
-    <span class="  col-sm-7 col-mg-7 col-lg-7 d-flex justify-content-center mt-4">
-        Maestrías
-    </span>
-    <div class="  col-sm-5 col-mg-5 col-lg-5 d-flex justify-content-raigth mt-4">
-        <button mat-raised-button routerLink="/public/login">
+<div class="main">
+
+    <div class="header">
+        <div class="row-sm-12 row-md-12 row-lg-12 toolbar mb-4 d-flex">
+            <div class="col-sm-10 col-md-10 col-lg-10 d-flex justify-content-evenly align-items-center  mt-1">
+                <div class="logo-toolbar">
+                    <img src="../../../../assets/logos/logotecnm.png" alt="" srcset="" class="logo">
+                </div>
+                <div class="title-toolbar d-flex justify-content-center">
+                    <span class="toolbar-text">Instituto Tecnológico de Zacatecas</span>
+                </div>
+
+
+
+
+            </div>
+            <div class="col-sm-2 col-md-2 col-lg-2 d-flex justify-content-end align-items-center mt-4 mr-4">
+                <button mat-raised-button id="login-button" routerLink="/public/login">
           <mat-icon>
             login
         </mat-icon>
       </button>
+            </div>
+
+        </div>
     </div>
 
+
+
+    <div class="content">
+        <mat-card *ngFor="let maestria of masters; let i = index">
+
+            <div class="logo-master">
+                <img src="../../../../assets/logos/pexels-scott-webb-430205.jpeg" alt="" srcset="" class="master-logo-img">
+            </div>
+            <div class="title-master">
+                {{ masters[i]['nombre_maestria']}}
+            </div>
+            <div class="see-master">
+                <button [routerLink]="['/public', masters[i]['_id'] , masters[i]['abreviatura_maestria']]" id="see-master-button">Ver</button>
+            </div>
+
+
+
+
+        </mat-card>
+    </div>
+
+
+
+
+
+
+
+
+
+    <router-outlet></router-outlet>
+
 </div>
-
-
-<mat-card>
-    <mat-accordion *ngFor="let maestria of masters; let i = index" class="col col-sm-12 col-md-6 col-lg-12 p-4">
-        <mat-expansion-panel>
-            <mat-expansion-panel-header>{{ masters[i]['nombre_maestria']}}</mat-expansion-panel-header>
-            <p>{{ masters[i]['general']['GLGAC'] }}</p>
-            <button mat-raised-button [routerLink]="['/public', masters[i]['_id'] , masters[i]['abreviatura_maestria']]">ver</button>
-        </mat-expansion-panel>
-    </mat-accordion>
-</mat-card>
-
-
-
-
-
-
-
-
-
-<router-outlet></router-outlet>
