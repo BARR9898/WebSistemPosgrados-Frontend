@@ -58,5 +58,7 @@ mat-expansion-panel {
 }
 
 mat-card {
+    border-radius: 10px;
     margin-bottom: 30pxs;
+    box-shadow: 7px 7px 20px #014763!important;
 }
