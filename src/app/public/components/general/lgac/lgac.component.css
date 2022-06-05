@@ -1,5 +1,10 @@
+.main {
+    min-width: 700px;
+}
+
 .documentacion-ingreso {
     margin-top: 40px;
+    box-shadow: 7px 7px 10px#1c679c;
 }
 
 mat-card-title {
@@ -12,10 +17,10 @@ mat-card-title {
 mat-panel-title {
     font-size: 20px;
     color: #0e3958;
-    margin-bottom: 30px;
+    font-weight: bold;
     display: flex;
     align-items: center;
-    margin-top: 20px;
+    padding-top: 4px
 }
 
 mat-panel-description {
@@ -31,7 +36,15 @@ p {
     padding: 10px;
 }
 
-mat-card,
-mat-expansion-panel {
+mat-card {
     border-radius: 20px;
+}
+
+mat-expansion-panel {
+    border-radius: 10px;
+    background-color: #f3f3f4;
+}
+
+mat-expansion-panel {
+    text-align: justify;
 }
