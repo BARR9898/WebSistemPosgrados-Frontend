@@ -11,7 +11,7 @@ export class GeneralPerfilesComponent implements OnInit {
   panelOpenState = true;
   _id: string
   master: any
-  nombre_maestria: string 
+  nombre_maestria: string
   abreviatura_maestria: string
   gpi_start: string
   gpi_conocimientos_basicos: []
@@ -37,7 +37,9 @@ export class GeneralPerfilesComponent implements OnInit {
       console.log(this._id)
       this.maestriasService.getMaestria(this._id)
         .subscribe(getedMaster => {
+
           this.master = getedMaster
+          console.log(this.master['general']['GPerfil_egreso']['GPE_conocimientos'])
           this.nombre_maestria = this.master['nombre_maestria'],
           this.abreviatura_maestria = this.master['abreviatura_maestria']
           this.gpi_start = this.master['general']['GPerfil_ingreso']['GPI_start']
@@ -54,6 +56,7 @@ export class GeneralPerfilesComponent implements OnInit {
 
 
         });
+
     });
   }
 

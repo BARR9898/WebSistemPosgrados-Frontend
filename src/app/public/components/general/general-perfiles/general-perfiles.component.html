@@ -4,7 +4,7 @@
         <mat-accordion>
             <mat-expansion-panel hideToggle (opened)="panelOpenState == true">
                 <mat-expansion-panel-header>
-                    <mat-panel-title>
+                    <mat-panel-title class="pt-4">
                         Perfil de ingreso
                     </mat-panel-title>
                     <mat-panel-description>
@@ -20,19 +20,25 @@
 
                 <!--CONOCIMEINTOS BASICOS-->
                 <mat-panel-title>Conocimientos básicos</mat-panel-title>
-                <p>{{gpi_conocimientos_basicos}}</p>
+                <ul *ngFor="let conocimiento of this.master['general']['GPerfil_ingreso']['GPI_conocimientos_basicos']; let i = index">
+                    <li>{{conocimiento}}</li>
+                </ul>
 
                 <hr>
 
                 <!--HABILIDADES-->
                 <mat-panel-title>Habilidades</mat-panel-title>
-                <p>{{gpi_conocimientos_habilidades}}</p>
+                <ul *ngFor="let habilidades of this.master['general']['GPerfil_ingreso']['GPI_conocimientos_habilidades']; let i = index">
+                    <li>{{habilidades}}</li>
+                </ul>
 
                 <hr>
 
                 <!--APTITUDES Y VALORES-->
                 <mat-panel-title>Aptitudes y valores</mat-panel-title>
-                <p>{{gpi_conocimientos_aptitudes_valores}}</p>
+                <ul *ngFor="let aptitudes of this.master['general']['GPerfil_ingreso']['GPI_conocimientos_aptitudes_valores']; let i = index">
+                    <li>{{aptitudes}}</li>
+                </ul>
 
             </mat-expansion-panel>
         </mat-accordion>
@@ -43,11 +49,11 @@
         <mat-accordion>
             <mat-expansion-panel hideToggle>
                 <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        Perfil de ingreso
+                    <mat-panel-title class="pt-4">
+                        Perfil de egreso
                     </mat-panel-title>
                     <mat-panel-description>
-                        Perfil de ingreso a la maestría
+                        Perfil de egreso a la maestría
                     </mat-panel-description>
                 </mat-expansion-panel-header>
 
@@ -58,18 +64,24 @@
 
                 <!--CONOCIMEINTOS BASICOS-->
                 <mat-panel-title>Conocimientos básicos</mat-panel-title>
-                <p>{{gpi_conocimientos_basicos}}</p>
+                <ul *ngFor="let conocimiento of this.master['general']['GPerfil_egreso']['GPE_conocimientos']; let i = index">
+                    <li>{{conocimiento}}</li>
+                </ul>
                 <hr>
 
                 <!--HABILIDADES-->
                 <mat-panel-title>Habilidades</mat-panel-title>
-                <p>{{gpi_conocimientos_habilidades}}</p>
+                <ul *ngFor="let habilidades of this.master['general']['GPerfil_egreso']['GPE_habiliades']; let i = index">
+                    <li>{{habilidades}}</li>
+                </ul>
 
                 <hr>
 
                 <!--APTITUDES Y VALORES-->
                 <mat-panel-title>Aptitudes y valores</mat-panel-title>
-                <p>{{gpi_conocimientos_aptitudes_valores}}</p>
+                <ul *ngFor="let habilidades of this.master['general']['GPerfil_egreso']['GPE_aptitudes']; let i = index">
+                    <li>{{habilidades}}</li>
+                </ul>
 
             </mat-expansion-panel>
         </mat-accordion>
