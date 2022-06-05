@@ -1,29 +1,9 @@
-.main {
-    display: flex;
-    margin-top: 60px;
-    width: 100%;
-    height: auto;
-    flex-direction: column;
-    justify-content: center;
-    align-items: start;
-    min-width: 560px;
+#main {
+    min-width: 700px;
     padding: 20px;
-}
-
-.objetivo-general,
-.objetivos-especificos,
-.metas {
-    width: 100%;
-    max-width: 1000px;
-    align-items: start;
-    height: 100%;
-    margin-bottom: 30px;
-}
-
-.data {
-    width: 100%;
     display: flex;
-    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 mat-card-subtitle {
@@ -33,9 +13,20 @@ mat-card-subtitle {
 
 mat-card-title {
     font-size: 22px;
-    color: #013a63;
+    color: #01355a;
 }
 
 mat-card {
     border-radius: 10px;
+    box-shadow: 7px 7px 20px #073e66;
+}
+
+mat-expansion-panel {
+    text-align: justify;
+    background-color: rgb(249, 249, 249);
+}
+
+mat-panel-title {
+    color: #206190;
+    font-weight: bold;
 }
