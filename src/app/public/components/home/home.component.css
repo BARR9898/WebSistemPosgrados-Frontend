@@ -1,6 +1,7 @@
 .main {
     overflow: scroll;
     max-width: 100%;
+    min-width: 700px;
 }
 
 mat-card {
