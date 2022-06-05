@@ -3,6 +3,7 @@ img {
     height: fit-content;
 }
 
-#logos {
+#footer {
+    min-width: 700px;
     background-color: rgb(240, 240, 240);
 }
