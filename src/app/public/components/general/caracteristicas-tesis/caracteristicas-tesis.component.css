@@ -1,17 +1,7 @@
 .main {
-    min-width: 560px;
-    display: flex;
+    min-width: 700px;
     margin-top: 40px;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-    align-items: center;
-}
-
-.requisitos-ingreso,
-.documentacion-ingreso {
-    width: 85%;
-    margin-top: 40px;
+    height: 350px;
 }
 
 mat-card-title {
@@ -19,22 +9,24 @@ mat-card-title {
     color: #013a63;
     margin-bottom: 30px;
     margin-top: 20px;
+    font-weight: bold;
 }
 
 mat-panel-title {
     font-size: 20px;
-    color: #0e3958;
+    color: #256b9e;
     margin-bottom: 30px;
     display: flex;
     align-items: center;
     margin-top: 20px;
+    font-weight: bold;
 }
 
 mat-panel-description {
     font-size: 16px;
     display: flex;
     align-items: center;
-    color: #1c679c;
+    color: #103c5b;
 }
 
 p {
@@ -43,45 +35,17 @@ p {
     padding: 10px;
 }
 
-mat-card,
+mat-card {
+    box-shadow: 7px 7px 15px #256b9e!important;
+    border-radius: 20px;
+}
+
 mat-expansion-panel {
     border-radius: 20px;
-}
-
-.convenio {
-    height: auto;
-    margin: 20px;
-    border-radius: 20px;
-    width: 400px;
-}
-
-.convenios {
-    width: 85%;
-    margin-top: 40px;
-    display: flex;
-    flex-direction: row;
-    margin-right: 20px;
-    border-radius: 20px;
-    justify-content: center;
+    background-color: #fafafa;
+    text-align: justify;
 }
 
 p {
     margin-left: 9px;
-}
-
-.crop-image {
-    height: 100px;
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-    margin-top: 10px;
-}
-
-img {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    max-width: 100%;
-    max-height: 100%;
 }
