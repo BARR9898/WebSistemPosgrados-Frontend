@@ -18,22 +18,40 @@
 
 button {
     margin-right: 20px;
-    background-color: rgb(8, 73, 130);
+    background-color: rgb(21, 69, 111);
     color: whitesmoke;
+    width: 100px;
+    height: 40px;
+    transition: backgorund-color .5s;
+}
+
+button:hover {
+    background-color: rgb(38, 84, 124);
 }
 
 mat-card-header {
-    background-color: rgb(8, 73, 130);
+    background-color: rgb(9, 75, 113);
     border-radius: 5px;
 }
 
 mat-card-title {
-    color: white;
+    color: whitesmoke;
+    font-size: 20px;
+}
+
+mat-card {
+    box-shadow: 7px 7px 15px rgb(26, 92, 150)!important;
+    border-radius: 10px;
 }
 
 main {
-    height: 100%;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+input {
+    background-color: aliceblue;
+    padding: 10px;
 }
