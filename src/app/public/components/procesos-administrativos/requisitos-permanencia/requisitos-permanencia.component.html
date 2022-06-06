@@ -1,34 +1,36 @@
 <div class="main">
-    <mat-card class="requisitos-ingreso mat-elevation-z4">
-        <mat-card-title>Requisitos de permanencia</mat-card-title>
-        <mat-accordion>
-            <mat-expansion-panel hideToggle (opened)="panelOpenState == true">
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        Requisitos
-                    </mat-panel-title>
-                    <mat-panel-description>
-                        Requisitos para permanecer a la maestría
-                    </mat-panel-description>
-                </mat-expansion-panel-header>
+    <div class="row-12 row-sm-12 row-md-12 row-lg-12 d-flex justify-content-center">
+        <div class="col-12 col-sm-8 col-md-10 col-lg-10  p-4">
+            <mat-card>
+                <mat-card-title>Requisitos de permanencia</mat-card-title>
+                <mat-accordion>
+                    <mat-expansion-panel hideToggle (opened)="panelOpenState == true">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Requisitos
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
 
-                <!--INTRODUCCIÓN-->
-                <mat-panel-title>Introducción</mat-panel-title>
-                <p>{{PARP_start}}</p>
+                        <!--INTRODUCCIÓN-->
+                        <mat-panel-title>Introducción</mat-panel-title>
+                        <p>{{PARP_start}}</p>
 
-                <hr>
+                        <hr>
 
-                <!--REQUSITOS-->
-                <mat-panel-title>Requisitos</mat-panel-title>
-                <ng-container *ngFor="let requisito of PARP_requisitos; let i = index">
-                    <p>{{PARP_requisitos[i]}}</p>
-                </ng-container>
-
+                        <!--REQUSITOS-->
+                        <mat-panel-title>Requisitos</mat-panel-title>
+                        <ul *ngFor="let requisito of PARP_requisitos; let i = index">
+                            <li>{{PARP_requisitos[i]}}</li>
+                        </ul>
 
 
-            </mat-expansion-panel>
-        </mat-accordion>
-    </mat-card>
+
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </mat-card>
+        </div>
+    </div>
+
 
 
 </div>
