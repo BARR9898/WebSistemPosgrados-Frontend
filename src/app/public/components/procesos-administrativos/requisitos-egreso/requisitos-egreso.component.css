@@ -3,7 +3,7 @@
     margin-top: 40px;
     flex-direction: column;
     min-width: 700px;
-    min-width: 350px;
+    min-height: 350px;
     align-items: center;
 }
 
