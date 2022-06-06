@@ -41,7 +41,7 @@ li {
 
 mat-card {
     border-radius: 20px;
-    box-shadow: 7px 7px 12px #1c679c;
+    box-shadow: 7px 7px 12px #1c679c!important;
 }
 
 mat-expansion-panel {
