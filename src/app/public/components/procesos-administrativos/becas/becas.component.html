@@ -1,35 +1,40 @@
 <div class="main">
+    <div class="row-12 row-sm-12 row-md-12 row-lg-12 d-flex justify-content-center">
+        <div class="col-12 col-sm-12 col-md-8 col-lg-9 p-4">
+            <mat-card>
+                <mat-card-title>Becas</mat-card-title>
+                <mat-accordion>
+                    <mat-expansion-panel hideToggle>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Información
+                            </mat-panel-title>
+                            <mat-panel-description>
 
-    <mat-card class="documentacion-ingreso mat-elevation-z4">
-        <mat-card-title>Becas</mat-card-title>
-        <mat-accordion>
-            <mat-expansion-panel hideToggle>
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        Información
-                    </mat-panel-title>
-                    <mat-panel-description>
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
 
-                    </mat-panel-description>
-                </mat-expansion-panel-header>
+                        <!--INTRODUCCIÓN-->
 
-                <!--INTRODUCCIÓN-->
+                        <p>{{becas_start}}</p>
 
-                <p>{{becas_start}}</p>
-
-                <hr>
-
-
-
-                <ul *ngFor="let requisito of becas_requisitos; let i = index">
-                    <li>{{becas_requisitos[i]}}</li>
-                </ul>
+                        <hr>
 
 
 
-            </mat-expansion-panel>
-        </mat-accordion>
-    </mat-card>
+                        <ul *ngFor="let requisito of becas_requisitos; let i = index">
+                            <li>{{becas_requisitos[i]}}</li>
+                        </ul>
+
+
+
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </mat-card>
+        </div>
+    </div>
+
+
 
 
 
