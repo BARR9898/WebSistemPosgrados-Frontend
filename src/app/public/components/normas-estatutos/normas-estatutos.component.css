@@ -5,14 +5,34 @@ mat-card-subtitle {
 
 mat-card-title {
     font-size: 22px;
-    color: #013a63;
+    color: #0b446d;
 }
 
 mat-card {
     border-radius: 10px;
+    box-shadow: 7px 7px 12px #1d6395!important;
+}
+
+mat-expansion-panel {
+    background-color: #f3f2f2;
+    text-align: justify;
+}
+
+mat-panel-title {
+    color: #0b446d;
+    font-weight: bold;
+}
+
+mat-panel-description {
+    color: #225d87;
 }
 
 .main {
+    min-width: 700px;
+    min-height: 350px;
+    overflow: auto;
+}
+
+table {
     width: 100%;
-    height: 100%;
 }
